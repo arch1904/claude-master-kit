@@ -1,7 +1,7 @@
 {
   "name": "master-kit",
   "displayName": "Master Session Kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Govern many concurrent Claude Code sessions from one: the master-session and consolidate skills, the /master-* commands, and the engineering commandments they run under.",
   "author": {
     "name": "Archit Gupta",
@@ -13,5 +13,5 @@
     "orchestration",
     "cloud-sessions"
   ],
-  "license": "MIT"
+  "license": "MIT with Commons Clause"
 }

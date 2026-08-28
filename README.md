@@ -137,4 +137,13 @@ repo returns 403 when the session tries to install from it.
 
 ## License
 
-MIT.
+MIT with the [Commons Clause](https://commonsclause.com/) condition. In practice:
+
+- **Free to use** — personally or at work, as a tool in your own workflow, including
+  modifying it for your own use and forking it to run your own rules.
+- **Not free to sell** — you may not offer the software, or a product or service whose
+  value derives substantially from it, to third parties for a fee. Reworking it into a
+  commercial product is what the clause exists to prevent.
+
+The full terms are in [LICENSE](LICENSE). Because of the Commons Clause, this is
+source-available rather than OSI open source.
