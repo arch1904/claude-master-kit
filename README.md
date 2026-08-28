@@ -36,6 +36,15 @@ builders answering into a dead message leg, concurrent reviewers colliding in on
 a session-list that reported idle for a child that had died. The skill says which failure,
 so you can judge whether the rule applies to you.
 
+### The `consolidate` skill
+
+The handoff artifact the master-session doctrine depends on. It writes and audits
+consolidation docs — the single document that lets a fresh session rehydrate a
+multi-session effort without loss: fixed section numbering, evidence labels with dates,
+executable re-verification recipes, and a ready-to-paste seed prompt for the successor.
+`master-session` routes its succession path through this; shipping them together means the
+handoff never dangles.
+
 ### Four companion commands
 
 - `/master-check` — full fleet sweep. Census, every child's wait verified *intentional*
@@ -51,7 +60,7 @@ so you can judge whether the rule applies to you.
 ### The commandments
 
 The plugin ships an opinionated set of cross-project engineering rules, in
-`GLOBAL-INSTRUCTIONS.md`, and loads them into every session it runs in. They are short, and
+`COMMANDMENTS.md`, and loads them into every session it runs in. They are short, and
 each one exists because its absence costs something specific:
 
 - **Ask, don't assume** — and when running unattended, pick the most reasonable reading,
@@ -83,7 +92,7 @@ context. It emits nothing when `~/.claude/CLAUDE.md` exists, because there they 
 loaded and printing them again would duplicate every rule. The guard is that file's own
 presence, so there is no flag to keep in sync and the hook is inert wherever it isn't needed.
 
-To run a different set, fork and replace `GLOBAL-INSTRUCTIONS.md`.
+To run a different set, fork and replace `COMMANDMENTS.md`.
 
 ## Install
 

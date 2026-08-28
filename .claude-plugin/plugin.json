@@ -1,8 +1,8 @@
 {
   "name": "master-kit",
   "displayName": "Master Session Kit",
-  "version": "0.1.0",
-  "description": "Govern many concurrent Claude Code sessions from one: the master-session skill, its /master-* commands, and the engineering commandments they run under.",
+  "version": "0.2.0",
+  "description": "Govern many concurrent Claude Code sessions from one: the master-session and consolidate skills, the /master-* commands, and the engineering commandments they run under.",
   "author": {
     "name": "Archit Gupta",
     "url": "https://github.com/arch1904"

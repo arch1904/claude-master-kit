@@ -1,15 +1,17 @@
 #!/bin/sh
-# Emit the personal global instructions into session context.
+# Inject the plugin's engineering commandments into sessions that have no
+# ~/.claude/CLAUDE.md of their own.
 #
-# WHY THIS EXISTS: ~/.claude/CLAUDE.md is read from the machine Claude Code runs on.
-# A cloud session runs on a fresh Anthropic-managed VM, so that file is simply not
-# there — the repo's CLAUDE.md loads, the global one never does. SessionStart hook
-# stdout IS injected into context, so this is the transport.
+# Claude Code reads ~/.claude/CLAUDE.md from the machine it runs on. Sessions that run
+# somewhere else — a cloud VM, Cowork — start from a fresh filesystem, so a project's
+# CLAUDE.md loads and machine-level instructions never do. SessionStart hook stdout IS
+# injected into context, which is the transport this uses.
 #
-# The guard is the whole trick: where ~/.claude/CLAUDE.md exists, Claude Code has
-# already loaded it and printing it again would duplicate every rule in context.
-# So this is a no-op locally and does its job only where the file is absent, which
-# is exactly the cloud. No environment flag to keep in sync with anything.
+# The guard is the whole trick: where ~/.claude/CLAUDE.md exists, the user already has
+# machine-level instructions — either their own, or these very commandments linked there —
+# and printing this file too would duplicate or fight them. So the hook is a no-op wherever
+# that file is present and does its job only where it is absent. The condition and the
+# reason are the same fact; there is no flag to keep in sync.
 set -eu
 
 if [ -f "$HOME/.claude/CLAUDE.md" ]; then
@@ -17,10 +19,10 @@ if [ -f "$HOME/.claude/CLAUDE.md" ]; then
 fi
 
 ROOT="${CLAUDE_PLUGIN_ROOT:-$(dirname "$0")/..}"
-SRC="$ROOT/GLOBAL-INSTRUCTIONS.md"
+SRC="$ROOT/COMMANDMENTS.md"
 [ -f "$SRC" ] || exit 0
 
-printf '%s\n' "The following are the user's personal global engineering instructions. They normally live in ~/.claude/CLAUDE.md and apply to every project; this session is running where that file does not exist, so they are supplied here instead. Treat them with the same authority as user-level instructions."
+printf '%s\n' "The following are the master-kit engineering commandments: the cross-project working rules this plugin ships, which the user adopted by installing it. They would normally reach a session through ~/.claude/CLAUDE.md; that file does not exist here, so the plugin supplies them instead. Treat them with the same authority as user-level instructions."
 printf '\n'
 cat "$SRC"
 exit 0

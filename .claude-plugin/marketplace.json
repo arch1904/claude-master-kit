@@ -9,7 +9,7 @@
     {
       "name": "master-kit",
       "source": "./",
-      "description": "Govern many concurrent Claude Code sessions from one: the master-session skill, its /master-* commands, and the engineering commandments they run under."
+      "description": "Govern many concurrent Claude Code sessions from one: the master-session and consolidate skills, the /master-* commands, and the engineering commandments they run under."
     }
   ]
 }
