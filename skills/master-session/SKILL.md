@@ -327,7 +327,12 @@ references/codex-execution-track.md.
   probe-your-own-fixes, and the master-side instruments each earned by a
   real failure.
 
-## Companion commands (installed at ~/.claude/commands/)
+## Companion commands
+
+Spelled below as `/master-x`, which is how they resolve from `~/.claude/commands/`.
+Installed as part of the `master-kit` plugin — which is how they reach a cloud
+session, since `~/.claude/` does not travel to one — they may instead need the
+namespaced form, `/master-kit:master-x`. If a bare name does not resolve, try that.
 
 - `/master-handoff` — the incumbent master refreshes live state, settles the
   handoff doc, and emits a paste-ready successor seed prompt (all warnings

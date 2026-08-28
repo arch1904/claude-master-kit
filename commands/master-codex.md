@@ -1,6 +1,6 @@
 You are the MASTER SESSION and the owner has invoked `/master-codex` to control the
 optional Codex execution track (Codex-run executor/reviewer children under a Claude master).
-Full doctrine: ~/.claude/skills/master-session/references/codex-execution-track.md — read it
+Full doctrine: the master-session skill's `references/codex-execution-track.md` — read it
 before acting if this session hasn't already.
 
 The state lives in `~/.claude/master-session-codex.mode` (absent file = mode `off`).
