@@ -1,12 +1,15 @@
 {
   "name": "claude-master-kit",
-  "owner": { "name": "Archit Gupta", "url": "https://github.com/arch1904" },
-  "description": "Personal Claude Code marketplace — one plugin, carried into cloud sessions.",
+  "owner": {
+    "name": "Archit Gupta",
+    "url": "https://github.com/arch1904"
+  },
+  "description": "Home of master-kit \u2014 fleet governance for concurrent Claude Code sessions.",
   "plugins": [
     {
       "name": "master-kit",
       "source": "./",
-      "description": "Master-session fleet governance skill, its master-* commands, and personal global engineering instructions."
+      "description": "Govern many concurrent Claude Code sessions from one: the master-session skill, its /master-* commands, and the engineering commandments they run under."
     }
   ]
 }

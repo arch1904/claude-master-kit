@@ -2,9 +2,16 @@
   "name": "master-kit",
   "displayName": "Master Session Kit",
   "version": "0.1.0",
-  "description": "Master-session fleet governance skill, its master-* commands, and personal global engineering instructions — carried into Claude Code cloud sessions, where ~/.claude never reaches.",
-  "author": { "name": "Archit Gupta", "url": "https://github.com/arch1904" },
+  "description": "Govern many concurrent Claude Code sessions from one: the master-session skill, its /master-* commands, and the engineering commandments they run under.",
+  "author": {
+    "name": "Archit Gupta",
+    "url": "https://github.com/arch1904"
+  },
   "repository": "https://github.com/arch1904/claude-master-kit",
-  "keywords": ["master-session", "orchestration", "cloud-sessions"],
+  "keywords": [
+    "master-session",
+    "orchestration",
+    "cloud-sessions"
+  ],
   "license": "MIT"
 }
