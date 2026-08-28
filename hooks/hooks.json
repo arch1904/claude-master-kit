@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/global-instructions.sh\"",
+            "timeout": 5,
+            "statusMessage": "Loading global engineering instructions..."
+          }
+        ]
+      }
+    ]
+  }
+}
