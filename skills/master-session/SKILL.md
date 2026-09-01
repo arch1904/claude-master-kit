@@ -52,9 +52,16 @@ genuinely independent.
 4. **Grow** — children discover out-of-scope work and file it; you dedupe,
    sequence, and surface chips to the owner. The tree grows from contact with
    the code, not from your plan.
-5. **Drain** — choreograph the merge queue: serialize merges to minimize
-   update-branch laps, watch every deploy to its verify step, close each
-   session with harvest-before-archive. **No safety-adjacent artifact merges
+5. **Drain** — land per WAVE, not per PR (references/landing-strategy.md):
+   children's work coalesces on a `campaign/<wave>` integration branch that
+   costs no CI, dependencies resolve there rather than on `main`, cleared PRs
+   are armed as a BATCH so the queue builds groups in parallel and merges
+   them in one push, and every push is preceded by the local CI-parity gate.
+   Watch every deploy to its verify step; close each session with
+   harvest-before-archive. (The pre-2026-09-01 form — serialize merges one at
+   a time — was measured at three full-suite runs plus a deploy per ~150-line
+   PR and four children idle 1.5–3 h each waiting on siblings' merges.)
+   **No safety-adjacent artifact merges
    reviewed only by its author**: the master assigns cross-review between
    children with a mandate to refute (mutations, probes — not reading), and
    routes findings as claims the author answers on the merits. Both
@@ -68,6 +75,37 @@ genuinely independent.
    verify-don't-transcribe audit of the record, cleanup as a first-class
    session, then the handoff doc (consolidate skill). Your context is
    mortal; the artifacts are the survivors.
+
+## Landing strategy — the throughput doctrine
+
+Measured 2026-09-01 over a ten-hour window: fifteen PRs, 57 CI runs, 2,029
+runner-minutes, 18% of them cancelled by a second push, three full-suite runs
+plus a deploy per merged PR, a mean of 116 minutes from open to merge for
+~150-line PRs, three stale-base conflicts found only in the queue, and four
+children idle 1.5–3 hours each waiting on a sibling's MERGE for a symbol that
+already existed on the sibling's branch. Pipeline cost is per-PR, not per-line,
+and the fleet was serializing what the merge queue could parallelize. The
+remedy needs no infrastructure change; the full table, the rules, and the
+adoption sequence are in references/landing-strategy.md. The five rules:
+
+- **R1 — Land per wave.** A `campaign/<wave>` integration branch cut from
+  `main`; children push to it (free of CI in a repo whose workflows trigger
+  on `main` only — verify that fact first); one landing PR per wave. No
+  migrations on the branch, ever; rebase onto `main` at every `main`
+  movement; branch lifetime ≤ one wave; review per commit as it lands; the
+  landing PR body assembled from those per-commit records.
+- **R2 — Batch the presses.** Arm cleared PRs in groups so the queue builds
+  speculative groups in parallel and merges up to `max_entries_to_merge` in
+  ONE push (one deploy). Collect the class-level press words this needs at
+  kickoff, not per PR.
+- **R3 — Local CI-parity gate before every push**, on a scratch worktree of
+  `main` merged with the change, repo-wide, keyless, verdict as exit status.
+- **R4 — Dependencies resolve on the branch.** A child needing a sibling's
+  symbol builds against the integration branch or the sibling's branch
+  merged locally. "Waiting on #N's merge" on the board is a DEFECT to clear,
+  in the same class as an idle child.
+- **R5 — Two standing reviewers**, pre-committed acceptance criteria for
+  delta re-reads, runnable mutation harnesses shipped with the PR.
 
 ## Authorization doctrine
 
@@ -218,6 +256,18 @@ on a word it cannot find in its own transcript is the doctrine working.
   instruments disagree, the vacuity probe outranks the static read. (A
   static "held" on a floor test lost to a probe showing it asserted
   `[]==[]`; full protocol: references/review-gauntlet.md.)
+- **A child blocked on a sibling's MERGE is a defect, not a wait.** Nothing
+  forces a dependency to resolve at `main`; the sibling's commit exists on a
+  branch the child can merge locally or on the integration branch. Charter
+  the dependency as "build against <branch>; push when your own gate is
+  green", never "wait for #N to land". (Four children idle 1.5–3 h each in
+  one afternoon for symbols an hour old on a sibling's branch.)
+- **No push without the local gate; no press one at a time.** Every push is
+  preceded by the repo's CI-parity gate on `main`-merged-with-the-change
+  (the merge-queue simulation — two of three reds in one day were visible
+  only there); cleared PRs are armed as a batch, never singly, so the queue's
+  parallel groups and one-push merge are used rather than defeated. Details
+  and the measurement: references/landing-strategy.md.
 - **A channel proof is round-trip, not send-success.** Master→child and
   child→master address spaces can be ASYMMETRIC (session ids vs uds socket
   names), and app restarts stale every socket: a successor's introduction
@@ -287,6 +337,10 @@ references/codex-execution-track.md.
 - "The owner clearly meant it" / "I'll just merge it for the child" — laundering.
 - "It's mechanical, I'll update their branch" — one branch, one writer.
 - "The child said it's done" — verify before relaying.
+- "Kepler waits for #838 to merge, then pushes" — a dependency resolving at
+  `main`; build against the branch instead (landing strategy R4).
+- Arming one cleared PR while four more sit cleared — serializing what the
+  queue parallelizes (R2).
 - "I'll record it now, the run will pass" — evidence precedes records.
 - "My board says X" (older than minutes, near a merge) — your view is a cache.
 - Spawning wave two before wave one's shape is known — cold decomposition.
@@ -320,6 +374,11 @@ references/codex-execution-track.md.
 - references/codex-execution-track.md — the optional owner-toggled Codex
   execution track: mode semantics, launch/supervise/communicate mechanics,
   the review-pairing rule, and the hybrid delegation heuristic.
+- references/landing-strategy.md — the throughput doctrine: the 2026-09-01
+  measurement (three runs + a deploy per PR; 18% cancelled; children idle on
+  siblings' merges), the campaign integration branch and its six sub-rules,
+  batched presses and class-level words, the local CI-parity gate,
+  dependencies-resolve-on-the-branch, adoption sequence, alternatives.
 - references/review-gauntlet.md — the delta-round convergence protocol for
   high-stakes PRs: declaration → full pass (reviewer + refuter, separate
   worktrees) → instrument-labelled verdicts → adjudication → one-push delta

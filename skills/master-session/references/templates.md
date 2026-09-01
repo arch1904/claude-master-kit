@@ -36,7 +36,9 @@ SCOPE: The deliverable and its boundary. Name what is explicitly OUT of
 scope, especially adjacent temptations.
 
 DISCIPLINE: The non-negotiables for this repo (e.g. TDD red-first, migration
-lint, skip-list diff, no migrations on this track).
+lint, skip-list diff, no migrations on this track). ALWAYS: "run the repo's
+local CI-parity gate (in SAIL: `./dev ci`) on main-merged-with-your-change
+before EVERY push; a scoped suite run is not a substitute" (landing R3).
 
 REPORTING: "Report to the master session at PR-open and at merge-readiness;
 report blockers plainly instead of grinding. Never AskUserQuestion — every
@@ -50,7 +52,10 @@ form (in-session / first-hand-to-master), and which are pre-authorized under
 what condition.
 
 COORDINATION: Who else is working near which files; the one-branch-one-writer
-rule; where sequencing decisions live (the master).
+rule; where sequencing decisions live (the master). Name the INTEGRATION
+BRANCH the child pushes to (landing R1) and state dependencies as "build
+against <sibling branch / integration branch>; push when your own gate is
+green" — never "wait for #N to merge" (landing R4).
 ```
 
 ## 3. Standing-authorization one-liner (owner → child session)

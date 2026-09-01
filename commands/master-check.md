@@ -14,9 +14,14 @@ your board older than minutes — and report in the fixed shape below.
    check that the wait is an instruction of record that STILL applies. A wait based on a
    superseded procedure, a missed signal, or a hold you forgot to lift is a defect — FIX IT
    NOW (send the unblocking message) and report it as "found and cleared", not as status.
+   **A child waiting on a sibling's MERGE for a symbol that exists on the sibling's branch is
+   a defect too** (landing strategy R4): re-charter it to build against the integration branch
+   or the sibling's branch merged locally, and report it as cleared.
 3. **Refetch live state**: open PRs with check states at their SHA-pinned heads, merge-queue
    entries, in-flight deploys followed to their verify step, and the production/readiness
-   surface if the campaign has one.
+   surface if the campaign has one. **Count cleared-but-unarmed PRs**: if more than one PR has a
+   review clear and no queue entry, that is presses being serialized — arm them as a batch
+   under the class-level words, or say which word is missing (landing strategy R2).
 4. **Sweep your own monitors**: confirm each watcher is still running and still pointed at
    something that exists; a monitor watching a finished thing is noise, a dead monitor is a
    blind spot.
